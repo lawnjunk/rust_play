@@ -1,10 +1,12 @@
 extern crate glutin_window;
 extern crate graphics;
 extern crate opengl_graphics;
+extern crate palette;
 extern crate piston;
 
 use glutin_window::GlutinWindow as Window;
 use opengl_graphics::{GlGraphics, OpenGL};
+use palette::{FromColor, Hsl, Srgba};
 use piston::event_loop::{EventSettings, Events};
 use piston::input::{MouseCursorEvent, RenderArgs, RenderEvent, UpdateArgs, UpdateEvent};
 use piston::window::WindowSettings;
@@ -50,24 +52,42 @@ impl App {
             .unwrap();
 
         let color_scale_x: f32 = (mouse_cursor.x / width) as f32;
-        let color_scale_y: f32 = (mouse_cursor.y / width) as f32;
+        let color_scale_y: f32 = (mouse_cursor.y / height) as f32;
+
+        let color = Hsl::new(color_scale_x * 360.0, color_scale_y, 1.0 - color_scale_y);
+        let color = Srgba::from_color(color);
 
         let background_color = Color {
-            red: 1.0 - color_scale_x,
-            green: 1.0,
-            blue: color_scale_y,
-            alpha: 1.0,
+            red: color.red as f32,
+            green: color.green as f32,
+            blue: color.blue as f32,
+            alpha: color.alpha as f32,
         };
+
+        let color_scale_x: f32 = (mouse_cursor.x / width) as f32;
+        let color = Hsl::new((360.0 - (color_scale_x * 360.0)), 0.75, 0.75);
+        let color = Srgba::from_color(color);
 
         let rectangle_color = Color {
-            red: 0.0,
-            green: 1.0 - color_scale_x,
-            blue: 1.0 - color_scale_x,
-            alpha: (color_scale_y / 2.0) + 0.5,
+            red: color.red as f32,
+            green: color.green as f32,
+            blue: color.blue as f32,
+            alpha: color.alpha as f32,
         };
 
-        let inner_rectangle =
-            rectangle::rectangle_by_corners(100.0, 100.0, width - 100.0, height - 100.0);
+        let size = width - mouse_cursor.y - 200.0;
+
+        let rect_width = width - (size);
+        let rect_height = height - (size);
+        let rect_width = 400.0;
+        let rect_height = 400.0;
+
+        let inner_rectangle = [
+            (width / 2.0) - (rect_width / 2.0),
+            (height / 2.0) - (rect_height / 2.0),
+            rect_width,
+            rect_height,
+        ];
 
         self.gl.draw(args.viewport(), |ctx, gl| {
             clear(background_color.to_array(), gl);
@@ -121,5 +141,4 @@ fn main() {
             app.handle_update(&args);
         }
     }
-    println!("Hello, world!");
 }
