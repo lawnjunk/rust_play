@@ -1,0 +1,1 @@
+/home/slugbyte/workspace/code/rust_play/_07_module/target/debug/lib_07_module.rlib: /home/slugbyte/workspace/code/rust_play/_07_module/src/lib.rs /home/slugbyte/workspace/code/rust_play/_07_module/src/math.rs
