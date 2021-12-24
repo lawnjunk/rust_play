@@ -171,8 +171,8 @@ fn handle_action(action: &Action, app: &mut App) {
 
 fn main() {
     let mut app = App::new();
+    println!("app {:#?}", app);
 
-    println!("{}", HELP_MESSAGE);
     loop {
         println!("");
         let action = fetch_input();
@@ -180,5 +180,6 @@ fn main() {
         if action == Action::Quit {
             break;
         }
+        println!("app {:#?}", app);
     }
 }
