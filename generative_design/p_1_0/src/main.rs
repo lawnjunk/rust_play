@@ -118,7 +118,10 @@ fn main() {
         .build()
         .unwrap();
 
-    let mut event_source = Events::new(EventSettings::new());
+    let mut event_settings = EventSettings::new();
+    event_settings.ups = 1;
+
+    let mut event_source = Events::new(event_settings);
 
     let mut app = App {
         gl: GlGraphics::new(opengl),
