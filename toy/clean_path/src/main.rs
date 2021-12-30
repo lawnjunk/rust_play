@@ -13,8 +13,9 @@ fn main() {
             path_set.insert(path);
             result.push(path);
         }
-        if let Ok(path) = env::join_paths(result) {
-            println!("{}", path.to_string_lossy());
-        }
+        let path = result.join(":");
+        println!("{}", path);
+    } else {
+        eprintln!("ERROR: unable to read $PATH");
     }
 }
