@@ -1,0 +1,50 @@
+use std::thread;
+use std::time::Duration;
+
+pub fn slow_as_funk(seed: u32) -> u32 {
+    println!("wait jus a minute");
+    thread::sleep(Duration::from_secs(2));
+    println!("thx luv");
+    seed
+}
+
+struct Cache<T> 
+    where T: Fn(u32) -> u32 
+{
+}
+
+
+fn  do_useless(seed: u32, random: u32) {
+    let slow_as_closure = |seed| {
+        println!("wait jus a minute");
+        thread::sleep(Duration::from_secs(2));
+        println!("thx luv");
+        seed
+    };
+
+    if  seed > 25 {
+        let result  = slow_as_closure(seed);
+        println!("garbage: {}", result);
+        let result  = slow_as_closure(seed);
+        println!("more garbage: {}", result);
+        return
+    }
+
+    if random == 3 {
+        println!("nothing for you this time");
+        return
+    }
+
+    let result = slow_as_closure(seed);
+    println!("trash: {}", result);
+}
+
+fn main() {
+    println!("Hello, world!");
+    let magic_seed = 50;
+    let magic_random = 7;
+
+    do_useless(magic_seed, magic_random);
+
+    println!("thnks bub, come back again");
+}
