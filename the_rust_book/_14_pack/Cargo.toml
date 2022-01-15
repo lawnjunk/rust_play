@@ -1,0 +1,6 @@
+[workspace]
+
+members = [
+  "scramble",
+  "tui-util",
+]
