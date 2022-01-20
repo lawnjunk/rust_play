@@ -11,19 +11,6 @@ pub fn help() {
     $ gerp filepath query"
     )
 }
-struct Argument<'arg> {
-    mode_color: bool,
-    mode_path_only: bool,
-    file_path: Vec<&'arg str>,
-    query: &'arg str,
-}
-
-impl<'arg> Argument<'arg> {
-    fn parse_os_args(os_args:) -> Argument<'arg> {
-        for 
-
-    }
-}
 
 #[derive(Debug)]
 struct Line<'a> {
